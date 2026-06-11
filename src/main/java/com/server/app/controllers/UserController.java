@@ -5,6 +5,7 @@ import com.server.app.dto.user.UserCreateDto;
 import com.server.app.dto.user.UserUpdateDto;
 import com.server.app.dto.response.Pagination;
 import com.server.app.entities.User;
+import com.server.app.repositories.UserRepository;
 import com.server.app.services.UserService;
 
 import org.springframework.data.domain.Page;

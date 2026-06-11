@@ -48,6 +48,11 @@ public class UserService {
         return userRepository.findAll(PageRequest.of(page, size), search);
     }
 
+    public User findById(Integer id) {
+        return userRepository.findById(Integer.valueOf(id))
+                .orElseThrow(() -> new NotFoundException("Usuario no encontrado con ID: " + id));
+    }
+
     @Transactional
     public User updateUser(int userId, UserUpdateDto dto) {
         User user = findById(userId);
