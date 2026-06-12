@@ -1,5 +1,4 @@
 package com.server.app.repositories;
-
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -22,5 +21,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "LOWER(u.name) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
             "LOWER(u.email) LIKE LOWER(CONCAT('%', :query, '%'))")
     Page<User> findAll(Pageable pageable, @Param("query") String query);
+
+    boolean existsByUsername(String username);
 
 }
