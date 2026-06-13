@@ -10,6 +10,9 @@ import com.server.app.dto.user.UserUpdateDto;
 import com.server.app.entities.User;
 import com.server.app.services.AuthService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,13 +20,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
-    private JsonWebToken jsonWebToken;
-
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
+    private final JsonWebToken jsonWebToken;
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@Valid @RequestBody LoginRequestDto request) {
@@ -54,14 +54,13 @@ public class AuthController {
     }
 
     @PutMapping("/update/password")
-    public ResponseEntity<String> updatePassword(
+    public ResponseEntity<AuthResponseDto> updatePassword(
             @RequestHeader("Authorization") String tokenHeader,
             @RequestBody UpdatePasswordRequestDto request) {
 
         String token = tokenHeader.substring(7);
         Integer userId = jsonWebToken.extractIdUser(token);
 
-        authService.updatePassword(userId, request);
-        return ResponseEntity.ok("Contraseña actualizada con éxito");
+        return ResponseEntity.ok(authService.updatePassword(userId, request));
     }
 }

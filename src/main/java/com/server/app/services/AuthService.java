@@ -87,16 +87,17 @@ public class AuthService {
     }
 
     @Transactional
-    public void updatePassword(Integer userId, UpdatePasswordRequestDto request) {
+    public AuthResponseDto updatePassword(Integer userId, UpdatePasswordRequestDto request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(request.getOldpassword(), user.getPassword())) {
             throw new RuntimeException("La contraseña actual es incorrecta");
         }
 
-        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        user.setPassword(passwordEncoder.encode(request.getNewpassword()));
         userRepository.save(user);
+        return buildAuthResponse(user);
     }
 
 

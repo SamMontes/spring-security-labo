@@ -10,8 +10,9 @@ public class SecurityRules {
     );
 
     public static final Map<String, Set<String>> AUTH_ONLY = Map.of(
-            "GET", Set.of("/api/auth/profile"),
-            "POST", Set.of("/api/auth/logout")
+            "GET", Set.of("/api/auth/profile", "/api/finanzas/cuentas","/api/finanzas/movimientos", "/api/finanzas/categorias"),
+            "POST", Set.of("/api/auth/logout", "/api/finanzas/cuentas", "/api/finanzas/transferencias"),
+            "PUT", Set.of("/api/auth/update/profile", "/api/auth/update/password")
     );
 
     public static final Set<String> IGNORED = Set.of("/error");
