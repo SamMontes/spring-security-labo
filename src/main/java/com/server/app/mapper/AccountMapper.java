@@ -18,6 +18,7 @@ public class AccountMapper {
 
     public AccountResponse toDto(Account entity) {
         AccountResponse dto = new AccountResponse();
+        dto.setId(entity.getId());
         dto.setAlias(entity.getAlias());
         return dto;
     }

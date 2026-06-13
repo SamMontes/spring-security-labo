@@ -14,9 +14,6 @@ public class MovementMapper {
     public Movement toEntity(MovementRequest req) {
         Movement mov = new Movement();
         mov.setAmount(req.getAmount());
-        mov.setOriginalCurrency(req.getOriginalCurrency());
-        mov.setExchangeRate(req.getExchangeRate());
-        mov.setDate(req.getDate());
         mov.setDescription(req.getDescription());
 
         Account acc = new Account();
